@@ -1,0 +1,9 @@
+[
+    {
+        "id": "p-0001",
+        "nombre": "Netflix",
+        "monto": 20000,
+        "vencimiento": "2025-11-30",
+        "pagado": false
+    }
+]

@@ -1,0 +1,105 @@
+1. Usuario: gasto 15000 almuerzo
+   Bot: ✅ Registrado: 15.000 COP — almuerzo (26 Nov 2025 10:30).
+
+2. Usuario: gasto 6000 transporte bus
+   Bot: ✅ Registrado: 6.000 COP — bus (26 Nov 2025 10:31).
+
+3. Usuario: hoy
+   Bot: Hoy has gastado: 21.000 COP.
+
+4. Usuario: gastos hoy
+   Bot: Hoy has gastado: 21.000 COP.
+
+5. Usuario: mes
+   Bot: En noviembre (2025) has gastado: 21.000 COP. Presupuesto: 200.000 COP. Te quedan 179.000 COP.
+
+6. Usuario: presupuesto 500000
+   Bot: ✅ Presupuesto mensual actualizado a: 500.000 COP
+
+7. Usuario: cuanto me queda
+   Bot: Te quedan: 479.000 COP del presupuesto de 500.000 COP.
+
+8. Usuario: pagopendiente agregar luz 45000 2025-11-30
+   Bot: ✅ Pago agregado: luz - 45.000 COP - vence 2025-11-30.
+
+9. Usuario: pagopendiente listar
+   Bot: 📅 Pagos pendientes:
+        - Netflix: 20.000 COP (2025-11-30)
+        - luz: 45.000 COP (2025-11-30)
+
+10. Usuario: resumen
+    Bot: 📊 Resumen:
+         Hoy has gastado: 21.000 COP.
+         Esta semana (desde 24/11) has gastado: 21.000 COP.
+         En noviembre (2025) has gastado: 21.000 COP. Presupuesto: 500.000 COP. Te quedan 479.000 COP.
+         Próximo pago: Netflix (20.000 COP) el 2025-11-30.
+
+11. Usuario: gasto 50000 cena
+    Bot: ✅ Registrado: 50.000 COP — cena (26 Nov 2025 18:00).
+
+12. Usuario: gasto 1200 pan
+    Bot: ✅ Registrado: 1.200 COP — pan (26 Nov 2025 18:05).
+
+13. Usuario: exportar mes 2025-11
+    Bot: ✅ Archivo exportado: data/export_2025-11.csv
+         (Nota: Para enviar el archivo real por WhatsApp se requiere subirlo a la API de Medios...)
+
+14. Usuario: ayuda
+    Bot: 🤖 Comandos disponibles:
+         - *gasto <monto> <detalle>*: Registrar gasto.
+         ...
+
+15. Usuario: hola
+    Bot: ❓ No entendí. Envía 'ayuda' para ver comandos.
+
+16. Usuario: gasto mil pesos
+    Bot: ❌ El monto debe ser un número positivo.
+
+17. Usuario: gasto 0 gratis
+    Bot: ❌ El monto debe ser un número positivo.
+
+18. Usuario: pagopendiente agregar internet 80000 mañana
+    Bot: ✅ Pago agregado: internet - 80.000 COP - vence 2025-11-27.
+
+19. Usuario: semana
+    Bot: Esta semana (desde 24/11) has gastado: 72.200 COP.
+
+20. Usuario: presupuesto 100000
+    Bot: ✅ Presupuesto mensual actualizado a: 100.000 COP
+
+21. Usuario: mes
+    Bot: En noviembre (2025) has gastado: 72.200 COP. Presupuesto: 100.000 COP. Te quedan 27.800 COP.
+
+22. Usuario: gasto 30000 taxi
+    Bot: ✅ Registrado: 30.000 COP — taxi (26 Nov 2025 19:00).
+
+23. Usuario: cuanto me queda
+    Bot: ⚠️ No te queda nada. Te has excedido en 2.200 COP.
+
+24. Usuario: pagopendiente listar
+    Bot: 📅 Pagos pendientes:
+         - internet: 80.000 COP (2025-11-27)
+         - Netflix: 20.000 COP (2025-11-30)
+         - luz: 45.000 COP (2025-11-30)
+
+25. Usuario: gasto 500 chicle
+    Bot: ✅ Registrado: 500 COP — chicle (26 Nov 2025 19:10).
+
+26. Usuario: exportar mes 2025-13
+    Bot: ❌ Formato de fecha inválido. Usa YYYY-MM (ej: 2025-11).
+
+27. Usuario: pagopendiente borrar
+    Bot: Subcomando desconocido. Usa 'agregar' o 'listar'.
+
+28. Usuario: gasto 10.000 cine
+    Bot: ✅ Registrado: 10.000 COP — cine (26 Nov 2025 20:00).
+
+29. Usuario: gasto 10,000 crispetas
+    Bot: ✅ Registrado: 10.000 COP — crispetas (26 Nov 2025 20:05).
+
+30. Usuario: resumen
+    Bot: 📊 Resumen:
+         Hoy has gastado: 112.700 COP.
+         Esta semana (desde 24/11) has gastado: 112.700 COP.
+         En noviembre (2025) has gastado: 112.700 COP. Presupuesto: 100.000 COP. Te has pasado 12.700 COP.
+         Próximo pago: internet (80.000 COP) el 2025-11-27.
