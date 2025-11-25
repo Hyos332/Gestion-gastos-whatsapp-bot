@@ -1,152 +1,75 @@
-# 🤖 WhatsApp Expense Bot
+# WhatsApp Expense Bot 💰
 
-Bot de WhatsApp para registro y gestión de gastos personales, construido con Python, Flask y la WhatsApp Cloud API. Almacena datos en archivos JSON locales.
+Bot personal para registrar gastos y gestionar finanzas directamente desde WhatsApp. Desarrollado con Python y Flask, utilizando la API oficial de WhatsApp Cloud.
 
-## 📋 Características
+## 🚀 Características
 
-- **Registro de gastos**: `gasto 15000 almuerzo`
-- **Resúmenes**: Diario (`hoy`), Semanal (`semana`), Mensual (`mes`).
-- **Presupuesto**: Control de presupuesto mensual y alertas de exceso.
-- **Pagos Pendientes**: Recordatorios de pagos futuros.
-- **Exportación**: Generación de CSV mensual.
-- **Almacenamiento Local**: JSON con rotación de logs y locking básico.
+- **Registro rápido**: `gasto 15000 almuerzo`
+- **Resúmenes**: Consulta cuánto has gastado hoy, en la semana o en el mes.
+- **Control de Presupuesto**: Define un límite mensual y recibe alertas si te excedes.
+- **Pagos Pendientes**: Agrega recordatorios para facturas y servicios.
+- **Exportación**: Genera un archivo CSV con tus movimientos del mes.
+- **Persistencia**: Los datos se guardan localmente en archivos JSON (fácil de respaldar y leer).
 
-## 🛠 Tech Stack
+## 🛠️ Tecnologías
 
-- **Lenguaje**: Python 3.10+
-- **Servidor Web**: Flask
-- **API**: WhatsApp Cloud API (Meta)
-- **Almacenamiento**: JSON (sin base de datos SQL)
-- **Herramientas**: ngrok (túnel local), pytest (pruebas), python-dotenv (configuración)
+- Python 3.10+
+- Flask
+- WhatsApp Cloud API
+- Docker & Docker Compose
 
-## 🚀 Instalación y Configuración
+## 📦 Instalación
 
-### 1. Prerrequisitos
-- Python 3.10 o superior instalado.
-- Cuenta de desarrollador en Meta (Facebook).
-- Una app creada en el panel de Meta con el producto "WhatsApp" habilitado.
+### Opción 1: Docker (Recomendada)
 
-### 2. Clonar y preparar entorno
-```bash
-# Instalar dependencias
-pip install -r requirements.txt
-```
+1. Clona el repositorio.
+2. Crea tu archivo de variables de entorno:
+   ```bash
+   cp .env.example .env
+   ```
+   Edita `.env` con tus credenciales de Meta (Token, Phone ID, etc).
 
-### 3. Configurar variables de entorno
-Crea un archivo `.env` basado en `.env.example`:
-```bash
-cp .env.example .env
-```
-Edita `.env` con tus credenciales:
-- `WHATSAPP_TOKEN`: Token de acceso temporal o permanente (System User).
-- `PHONE_NUMBER_ID`: ID del número de teléfono de prueba o real.
-- `VERIFY_TOKEN`: Una cadena secreta que tú inventas (ej. `mi_secreto_seguro`).
+3. Levanta el servicio:
+   ```bash
+   docker-compose up -d
+   ```
 
-### 4. Ejecutar el servidor
-```bash
-python app.py
-```
-El servidor correrá en `http://localhost:5000`.
+El bot estará corriendo en el puerto `5000`.
 
-### 5. Exponer con ngrok
-Para que WhatsApp pueda enviar mensajes a tu servidor local, necesitas un túnel HTTPS.
-```bash
-ngrok http 5000
-```
-Copia la URL HTTPS generada (ej. `https://a1b2c3d4.ngrok.io`).
+### Opción 2: Manual
 
-### 6. Configurar Webhook en Meta
-1. Ve a la consola de desarrolladores de Meta -> Tu App -> WhatsApp -> Configuración.
-2. En **URL de devolución de llamada**, pega tu URL de ngrok + `/webhook` (ej. `https://a1b2c3d4.ngrok.io/webhook`).
-3. En **Token de verificación**, pega el `VERIFY_TOKEN` que pusiste en tu `.env`.
-4. Haz clic en "Verificar y guardar".
-5. Suscríbete al evento `messages`.
+1. Instala las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Configura el `.env`.
+3. Ejecuta la aplicación:
+   ```bash
+   python app.py
+   ```
 
-## 🧪 Pruebas
+## 🔗 Conexión con WhatsApp
 
-### Ejecutar tests automatizados
-```bash
-pytest
-```
-Esto ejecutará las pruebas unitarias para `storage` y `commands`.
+Para que WhatsApp pueda comunicarse con tu bot local, necesitas exponer el puerto 5000 a internet.
 
-### Prueba manual con cURL
-Puedes simular un mensaje de WhatsApp enviando un POST a tu webhook local:
+1. Usa **ngrok**:
+   ```bash
+   ngrok http 5000
+   ```
+2. Copia la URL HTTPS generada.
+3. Ve a la consola de desarrolladores de Meta -> WhatsApp -> Configuración.
+4. En **Webhook**, coloca tu URL + `/webhook` (ej: `https://tu-url.ngrok.io/webhook`) y tu token de verificación.
 
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{
-  "object": "whatsapp_business_account",
-  "entry": [{
-    "id": "WHATSAPP_BUSINESS_ACCOUNT_ID",
-    "changes": [{
-      "value": {
-        "messaging_product": "whatsapp",
-        "metadata": {
-          "display_phone_number": "1234567890",
-          "phone_number_id": "1234567890"
-        },
-        "contacts": [{
-          "profile": {
-            "name": "NAME"
-          },
-          "wa_id": "PHONE_NUMBER"
-        }],
-        "messages": [{
-          "from": "573001234567",
-          "id": "wamid.HBgM...",
-          "timestamp": "1600000000",
-          "text": {
-            "body": "gasto 15000 almuerzo"
-          },
-          "type": "text"
-        }]
-      },
-      "field": "messages"
-    }]
-  }]
-}' http://localhost:5000/webhook
-```
+## 📝 Ejemplos de Uso
 
-## 📚 Documentación de API Webhook
+| Comando | Acción |
+|---------|--------|
+| `gasto 2000 café` | Registra un gasto de 2000 |
+| `hoy` | Muestra el total gastado hoy |
+| `mes` | Resumen del mes y presupuesto restante |
+| `presupuesto 500000` | Establece el presupuesto mensual |
+| `pagopendiente agregar luz 50000 2025-11-30` | Agrega un pago pendiente |
+| `ayuda` | Muestra todos los comandos disponibles |
 
-### Endpoint: `POST /webhook`
-Recibe notificaciones de mensajes entrantes.
-
-**Payload simplificado:**
-```json
-{
-  "entry": [{
-    "changes": [{
-      "value": {
-        "messages": [{
-          "from": "573001234567",
-          "text": { "body": "mensaje del usuario" },
-          "type": "text"
-        }]
-      }
-    }]
-  }]
-}
-```
-
-### Endpoint: `GET /webhook`
-Usado por Meta para verificar la URL. Requiere parámetros `hub.mode`, `hub.verify_token`, `hub.challenge`.
-
-## 🔒 Seguridad y Privacidad
-
-- **Tokens**: Nunca subas el archivo `.env` al repositorio.
-- **Datos**: Los archivos JSON en `data/` contienen información financiera. Asegúrate de que esta carpeta no sea accesible públicamente si despliegas en un servidor real.
-- **Validación**: El bot valida que los montos sean positivos y maneja errores de formato.
-
-## 📂 Estructura del Proyecto
-
-- `app.py`: Servidor Flask.
-- `whatsapp_handler.py`: Lógica de comunicación con API de WhatsApp.
-- `commands.py`: Lógica de negocio de cada comando.
-- `storage.py`: Manejo de archivos JSON (lectura/escritura/locking).
-- `utils.py`: Funciones auxiliares (fechas, monedas).
-- `data/`: Almacenamiento de datos.
-- `tests/`: Tests unitarios.
-
-## ⚠️ Modo sin WhatsApp Cloud API
-Si no puedes usar la API oficial, este código base puede adaptarse para usar librerías como `pywhatkit` (solo envío) o `selenium` (envío/recepción), pero requiere modificar `whatsapp_handler.py` para no depender de webhooks y usar un loop de polling o automatización de navegador, lo cual es menos estable y no recomendado para producción.
+---
+*Proyecto personal para gestión de gastos.*
